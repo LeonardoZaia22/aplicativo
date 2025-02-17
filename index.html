@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento Fácil</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .menu {
+            display: none;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 280px;
+        }
+        .menu.active {
+            display: block;
+        }
+        button {
+            margin: 10px;
+            padding: 12px;
+            font-size: 16px;
+            background-color: #28a745;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="menu-principal" class="menu active">
+            <h2>Como quer pagar?</h2>
+            <button onclick="mostrarMenu('pix')">Pix</button>
+            <button onclick="mostrarMenu('debito')">Débito</button>
+            <button onclick="mostrarMenu('credito')">Crédito</button>
+        </div>
+
+        <div id="pix" class="menu">
+            <h2>Pix</h2>
+            <p>Escaneie o QR Code ou copie a chave.</p>
+            <button onclick="confirmarPagamento('Pix')">Pagar</button>
+            <button onclick="voltar()">Voltar</button>
+        </div>
+
+        <div id="debito" class="menu">
+            <h2>Débito</h2>
+            <p>Insira os dados do cartão.</p>
+            <button onclick="confirmarPagamento('Débito')">Pagar</button>
+            <button onclick="voltar()">Voltar</button>
+        </div>
+
+        <div id="credito" class="menu">
+            <h2>Crédito</h2>
+            <p>Escolha as parcelas e insira os dados.</p>
+            <button onclick="confirmarPagamento('Crédito')">Pagar</button>
+            <button onclick="voltar()">Voltar</button>
+        </div>
+    </div>
+
+    <script>
+        let historico = ['menu-principal'];
+
+        function mostrarMenu(id) {
+            document.getElementById(historico[historico.length - 1]).classList.remove('active');
+            document.getElementById(id).classList.add('active');
+            historico.push(id);
+        }
+
+        function voltar() {
+            if (historico.length > 1) {
+                document.getElementById(historico.pop()).classList.remove('active');
+                document.getElementById(historico[historico.length - 1]).classList.add('active');
+            }
+        }
+
+        function confirmarPagamento(metodo) {
+            alert(`Pagamento confirmado com ${metodo}!`);
+            voltar();
+        }
+    </script>
+</body>
+</html>
